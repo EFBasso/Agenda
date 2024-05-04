@@ -1,3 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+app_name = 'contact'
+
+
+def index(request):
+    return render(
+        request,
+        'contact/index.html',
+    )
