@@ -1,3 +1,5 @@
+# type: ignore
+# flake8: noqa
 """
 Django settings for project project.
 
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ 
+        'DIRS': [
             BASE_DIR / 'base_templates'
             ],
         'APP_DIRS': True,
