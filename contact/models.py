@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -24,6 +25,11 @@ class Contact(models.Model):
     picture = models.ImageField(blank=True, upload_to='pictures/%Y/%m/%d/')
     category = models.ForeignKey(
         Category,  # chave estrangeira ->Category<-
+        on_delete=models.SET_NULL,
+        blank=True, null=True,
+        )
+    owner = models.ForeignKey(
+        User,
         on_delete=models.SET_NULL,
         blank=True, null=True,
         )
