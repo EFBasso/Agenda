@@ -1,9 +1,10 @@
 # flake8:noqa
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from contact.forms import RegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
+
+from contact.forms import RegisterForm, RegisterUpdateForm
 
 
 def register(request):
@@ -28,6 +29,39 @@ def register(request):
     )
 
 
+def user_update(request):
+    form = RegisterUpdateForm(instance=request.user)
+
+    if request.method != 'POST':
+        return render(
+            request,
+            'contact/register.html',
+            {
+                'form': form,
+            }
+        )
+
+    form = RegisterUpdateForm(data=request.POST, instance=request.user)
+
+    if not form.is_valid():
+        return render(
+            request,
+            'contact/register.html',
+            {
+                'form': form,
+            }
+        )
+    
+    form.save()
+    return render(
+        request,
+        'contact/register.html',
+        {
+            'form': form,
+        }
+    )
+    
+
 def login_view(request):
     form = AuthenticationForm(request)
 
@@ -48,6 +82,7 @@ def login_view(request):
         'form': form,
     }
 )
+
 
 def logout_view(request):
     auth.logout(request)
